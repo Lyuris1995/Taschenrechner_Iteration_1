@@ -5,6 +5,11 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taschenrechner_Iteration_1", "Taschenrechner_Iteration_1\Taschenrechner_Iteration_1.csproj", "{86296F8C-E364-4BD8-B47C-CCB48946CA48}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projektmappenelemente", "Projektmappenelemente", "{97BE6802-601D-4B18-B3B2-0AEFC05C644C}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\OneDrive\Desktop\UserStory.txt = ..\..\..\OneDrive\Desktop\UserStory.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

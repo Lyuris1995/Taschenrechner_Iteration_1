@@ -18,11 +18,11 @@ namespace Taschenrechner_Iteration_1
             string zweiterSummand = Console.ReadLine();
 
             // Wandel Text in Ganzzahlen
-            int ersterSummandAlsZahl = Convert.ToInt32(ersterSummand);
-            int zweiterSummandAlsZahl = Convert.ToInt32(zweiterSummand);
+            double ersterSummandAlsZahl = Convert.ToDouble(ersterSummand);
+            double zweiterSummandAlsZahl = Convert.ToDouble(zweiterSummand);
 
             // Berechnung ausführen
-            int summe = ersterSummandAlsZahl + zweiterSummandAlsZahl;
+            double summe = ersterSummandAlsZahl + zweiterSummandAlsZahl;
 
             // Ausgabe 
             Console.WriteLine("Die Summe ist: {0}", summe);
