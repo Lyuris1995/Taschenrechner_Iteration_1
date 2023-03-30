@@ -9,15 +9,22 @@ namespace Taschenrechner_Iteration_1
 {
     internal class Program
     {
+        // METHODE DEFINIEREN (in 7 Schritten)
+        // (optional) Modifizierer definieren
+        // Datentyp des Rückgabewertes definieren
+        // Methodennamen definieren
+        // Runde Klammern an den Methodennamen anfügen
+        // Überlegen welche Parameter benötigt werden (optional diese definieren)
+        // Geschweifte Klammern einfügen
+        // Methode implementieren (Anweisungen in den Methodenrumpf schreiben)
+
         static void Main(string[] args)
         {
             // User Story "Addieren": Als Benutzer möchte ich zwei Zahlen eingeben, um deren Summe berechnen zu lassen.
-            Console.Write("Bitte gib den ersten Summanden ein: ");
-            string ersterSummand = Console.ReadLine();
-            Console.Write("Bitte gib den zweiten Summanden ein: ");
-            string zweiterSummand = Console.ReadLine();
+            string ersterSummand = HoleSummanden("Bitte gib den ersten Summanden ein: ");
+            string zweiterSummand = HoleSummanden("Bitte gib den zweiten Summanden ein: ");
 
-            // Wandel Text in Ganzzahlen
+            // Wandel Text in Gleitkommazahlen 
             double ersterSummandAlsZahl = Convert.ToDouble(ersterSummand);
             double zweiterSummandAlsZahl = Convert.ToDouble(zweiterSummand);
 
@@ -27,6 +34,13 @@ namespace Taschenrechner_Iteration_1
             // Ausgabe 
             Console.WriteLine("Die Summe ist: {0}", summe);
             WarteAufBenutzerEingabe();
+        }
+        static string HoleSummanden(string ausgabeText)
+        {
+            Console.Write(ausgabeText);
+            string Summand = Console.ReadLine();
+
+            return Summand;
         }
 
         static double Addiere(double ersterSummand, double zweiterSummand)
