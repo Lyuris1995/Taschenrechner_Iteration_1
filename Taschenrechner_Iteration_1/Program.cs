@@ -21,21 +21,31 @@ namespace Taschenrechner_Iteration_1
         static void Main(string[] args)
         {
             // User Story "Addieren": Als Benutzer möchte ich zwei Zahlen eingeben, um deren Summe berechnen zu lassen.
-            string ersterSummand = HoleSummanden("Bitte gib den ersten Summanden ein: ");
-            string zweiterSummand = HoleSummanden("Bitte gib den zweiten Summanden ein: ");
+            string ersteZahlAlsString = HoleBenutzerEingabe("Bitte gib die erste Zahl ein: ");
+            string zweiteZahlAlsString = HoleBenutzerEingabe("Bitte gib die zweite Zahl ein ein: ");
+            string operation = HoleBenutzerEingabe("Bitte gib die auszuführende Operation an (+ oder -): ");
 
-            // Wandel Text in Gleitkommazahlen 
-            double ersterSummandAlsZahl = Convert.ToDouble(ersterSummand);
-            double zweiterSummandAlsZahl = Convert.ToDouble(zweiterSummand);
+            // Wandel Text in Gleitkommazahlen
+            // TODO: Auslagern in Methode, wenn Struktur umfangreicher geworden ist.
+            double ersteZahl = Convert.ToDouble(ersteZahlAlsString);
+            double zweiteZahl = Convert.ToDouble(zweiteZahlAlsString);
 
             // Berechnung ausführen
-            double summe = Addiere(ersterSummandAlsZahl, zweiterSummandAlsZahl);
+            double resultat = 0;
+            if (operation == "+")
+            {
+                resultat = Addiere(ersteZahl, zweiteZahl);
+            }
+            else
+            {
+                resultat = Subtrahiere(ersteZahl, zweiteZahl);
+            }
 
             // Ausgabe 
-            Console.WriteLine("Die Summe ist: {0}", summe);
-            WarteAufBenutzerEingabe();
+            Console.WriteLine("Das Resultat ist: {0}", resultat);
+            HoleBenutzerEingabe("Zum beenden bitte Return drücken!");
         }
-        static string HoleSummanden(string ausgabeText)
+        static string HoleBenutzerEingabe(string ausgabeText)
         {
             Console.Write(ausgabeText);
             string Summand = Console.ReadLine();
@@ -49,11 +59,12 @@ namespace Taschenrechner_Iteration_1
 
             return summe;
         }
-
-        static void WarteAufBenutzerEingabe()
+        static double Subtrahiere(double minuend, double subtrahent)
         {
-            Console.WriteLine("Zum beenden bitte Return drücken!");
-            Console.ReadLine();
+            double summe = minuend - subtrahent;
+
+            return summe;
         }
+
     }
 }
