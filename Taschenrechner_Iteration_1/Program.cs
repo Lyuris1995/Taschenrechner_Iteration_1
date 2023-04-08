@@ -4,8 +4,9 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Taschenrechner_Iteration_1;
 
-namespace Taschenrechner_Iteration_1
+namespace Taschenrechner
 {
     internal class Program
     {
@@ -31,7 +32,8 @@ namespace Taschenrechner_Iteration_1
             double zweiteZahl = Convert.ToDouble(zweiteZahlAlsString);
 
             //Berechnung ausführen
-            double resultat = Berechnung(ersteZahl, zweiteZahl, operation);
+            RechnerModel model = new RechnerModel();
+            double resultat = model.Berechne(ersteZahl, zweiteZahl, operation);
 
             // Ausgabe 
             GibResultatAus(resultat, operation);
@@ -44,31 +46,6 @@ namespace Taschenrechner_Iteration_1
             string Summand = Console.ReadLine();
 
             return Summand;
-        }
-
-        static double Berechnung(double ersteZahl, double zweiteZahl, string operation)
-        {
-            // Berechnung ausführen
-            double resultat = 0;
-            switch (operation)
-            {
-                case "+":
-                    resultat = Addiere(ersteZahl, zweiteZahl);
-                    break;
-
-                case "-":
-                    resultat = Subtrahiere(ersteZahl, zweiteZahl);
-                    break;
-
-                case "*":
-                    resultat = Multipliziere(ersteZahl, zweiteZahl);
-                    break;
-
-                case "/":
-                    resultat = Dividieren(ersteZahl, zweiteZahl);
-                    break;
-            }
-            return resultat;
         }
 
         static void GibResultatAus(double resultat, string operation)
@@ -96,27 +73,5 @@ namespace Taschenrechner_Iteration_1
                     break;
             }
         }
-
-        static double Addiere(double ersterSummand, double zweiterSummand)
-        {
-            double summe = ersterSummand + zweiterSummand;
-
-            return summe;
-        }
-        static double Subtrahiere(double minuend, double subtrahent)
-        {
-            double summe = minuend - subtrahent;
-
-            return summe;
-        }
-        static double Multipliziere(double multiplikator, double multiplikand)
-        {
-            return multiplikator * multiplikand;
-        }
-        static double Dividieren(double dividend, double divisor)
-        {
-            return dividend / divisor;
-        }
-
     }
 }
