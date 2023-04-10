@@ -23,9 +23,9 @@ namespace Taschenrechner
         {
             RechnerModel model = new RechnerModel();
             ConsoleView view = new ConsoleView(model);
-            string ersteZahlAlsString = view.HoleBenutzerEingabe("Bitte gib die erste Zahl ein: ");
-            string zweiteZahlAlsString = view.HoleBenutzerEingabe("Bitte gib die zweite Zahl ein ein: ");
-            string operation = view.HoleBenutzerEingabe("Bitte gib die auszuführende Operation an (+, -, * oder /): ");
+            string ersteZahlAlsString = view.HoleZahlVomBenutzer();
+            string operation = view.HoleOperatorVomBenutzer();
+            string zweiteZahlAlsString = view.HoleZahlVomBenutzer();
 
             // Wandel Text in Gleitkommazahlen
             // TODO: Auslagern in Methode, wenn Struktur umfangreicher geworden ist.
@@ -37,7 +37,7 @@ namespace Taschenrechner
 
             // Ausgabe 
             view.GibResultatAus(operation);
-            view.HoleBenutzerEingabe("Zum beenden bitte Return drücken!");
+            view.WarteAufEndeDurchBenutzer();
         }
 
         

@@ -15,6 +15,24 @@ namespace Taschenrechner_Iteration_1
             this.model = model;
         }
 
+        public string HoleZahlVomBenutzer()
+        {
+            Console.Write("Bitte gib eine Zahl für die Berechnung ein: ");
+            return Console.ReadLine();
+        }
+
+        public string HoleOperatorVomBenutzer()
+        {
+            Console.Write("Bitte gib die auszuführende Operation ein (+, -, *, /): ");
+            return Console.ReadLine();
+        }
+
+        public void WarteAufEndeDurchBenutzer()
+        {
+            Console.Write("Zum beenden bitte Return drücken!");
+            Console.ReadLine();
+        }
+
         public string HoleBenutzerEingabe(string ausgabeText)
         {
             Console.Write(ausgabeText);
