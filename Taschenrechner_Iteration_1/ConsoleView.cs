@@ -8,6 +8,13 @@ namespace Taschenrechner_Iteration_1
 {
     internal class ConsoleView
     {
+        private RechnerModel model;
+
+        public ConsoleView(RechnerModel model)
+        {
+            this.model = model;
+        }
+
         public string HoleBenutzerEingabe(string ausgabeText)
         {
             Console.Write(ausgabeText);
@@ -16,24 +23,24 @@ namespace Taschenrechner_Iteration_1
             return Summand;
         }
 
-        public void GibResultatAus(double resultat, string operation)
+        public void GibResultatAus(string operation)
         {
             switch (operation)
             {
                 case "+":
-                    Console.WriteLine("Die Summe ist: {0}", resultat);
+                    Console.WriteLine("Die Summe ist: {0}", model.Resultat);
                     break;
 
                 case "-":
-                    Console.WriteLine("Die Differenz ist: {0}", resultat);
+                    Console.WriteLine("Die Differenz ist: {0}", model.Resultat);
                     break;
 
                 case "*":
-                    Console.WriteLine("Der Wert des Quotienten: {0}", resultat);
+                    Console.WriteLine("Der Wert des Quotienten: {0}", model.Resultat);
                     break;
 
                 case "/":
-                    Console.WriteLine("Das Produkt ist: {0}", resultat);
+                    Console.WriteLine("Das Produkt ist: {0}", model.Resultat);
                     break;
 
                 default:
