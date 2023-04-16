@@ -6,34 +6,37 @@ using System.Threading.Tasks;
 
 namespace Taschenrechner_Iteration_1
 {
-    internal class RechnerModel
+    public class RechnerModel
     {
         public double Resultat { get; private set; }
+        public string Operation { get; set; }
+        public double ErsteZahl { get; set; }
+        public double ZweiteZahl { get; set; }
 
         public RechnerModel()
         {
             Resultat = 0;
+            Operation = "unbekannt";
         }
 
-        public void Berechne(double ersteZahl, double zweiteZahl, string operation)
+        public void Berechne()
         {
-            // Berechnung ausführen
-            switch (operation)
+             switch (Operation)
             {
                 case "+":
-                    Resultat = Addiere(ersteZahl, zweiteZahl);
+                    Resultat = Addiere(ErsteZahl, ZweiteZahl);
                     break;
 
                 case "-":
-                    Resultat = Subtrahiere(ersteZahl, zweiteZahl);
+                    Resultat = Subtrahiere(ErsteZahl, ZweiteZahl);
                     break;
 
                 case "*":
-                    Resultat = Multipliziere(ersteZahl, zweiteZahl);
+                    Resultat = Multipliziere(ErsteZahl, ZweiteZahl);
                     break;
 
                 case "/":
-                    Resultat = Dividieren(ersteZahl, zweiteZahl);
+                    Resultat = Dividieren(ErsteZahl, ZweiteZahl);
                     break;
             }
         }

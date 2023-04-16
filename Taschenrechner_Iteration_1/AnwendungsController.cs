@@ -17,21 +17,23 @@ namespace Taschenrechner_Iteration_1
             this.view = view;
             this.model = model;
         }
-
+        
         public void Ausfuehren()
         {
-            double ersteZahl = view.HoleZahlVomBenutzer();
-            string operation = view.HoleOperatorVomBenutzer();
-            double zweiteZahl = view.HoleZahlVomBenutzer();
+                view.HoleEingabenFuerErsteBerechnungVomBenutzer();
 
-            //Berechnung ausführen
-            model.Berechne(ersteZahl, zweiteZahl, operation);
+                model.Berechne();
 
-            // Ausgabe 
-            view.GibResultatAus(operation);
-            view.WarteAufEndeDurchBenutzer();
+                view.GibResultatAus();
+                view.HoleEingabenFuerFortlaufendeBerechnung();
 
+                while (!view.BenutzerWillBeenden)
+                {
+                    model.Berechne();
+                    view.GibResultatAus();
+                    view.HoleEingabenFuerFortlaufendeBerechnung();
+                }
+            }
         }
     }
-}
 
