@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Taschenrechner_Iteration_1
+namespace Taschenrechner
 {
     class AnwendungsController
     {
@@ -21,9 +21,7 @@ namespace Taschenrechner_Iteration_1
         public void Ausfuehren()
         {
                 view.HoleEingabenFuerErsteBerechnungVomBenutzer();
-
                 model.Berechne();
-
                 view.GibResultatAus();
                 view.HoleEingabenFuerFortlaufendeBerechnung();
 

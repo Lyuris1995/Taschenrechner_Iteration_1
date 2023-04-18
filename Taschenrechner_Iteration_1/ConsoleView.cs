@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Taschenrechner_Iteration_1
+namespace Taschenrechner
 {
-    internal class ConsoleView
+    public class ConsoleView
     {
         private RechnerModel model;
 
@@ -20,48 +16,95 @@ namespace Taschenrechner_Iteration_1
 
         public void HoleEingabenFuerErsteBerechnungVomBenutzer()
         {
-            model.ErsteZahl = HoleZahlVomBenutzer();
+            // TODO: Refactoring benötigt - Probleme: unübersichtlich, nicht DRY, nicht SLA!
+
+            // Eingabe und Validierung der ersten Zahl
+            do
+            {
+                model.ErsteZahl = HoleZahlVomBenutzer();
+                if (model.AktuellerFehler == Fehler.GrenzwertUeberschreitung)
+                {
+                    Console.WriteLine("FEHLER: Zahl muss größer als {0} und kleiner als {1} sein.", RechnerModel.UntererGrenzwert, RechnerModel.ObererGrenzwert);
+                }
+            }
+            while (model.AktuellerFehler == Fehler.GrenzwertUeberschreitung);
+
+            // Eingabe und Validierung des Operators
             model.Operation = HoleOperatorVomBenutzer();
-            model.ZweiteZahl = HoleZahlVomBenutzer();
+
+            // Eingabe und Validierung der zweiten Zahl
+            do
+            {
+                model.ZweiteZahl = HoleZahlVomBenutzer();
+                if (model.AktuellerFehler == Fehler.GrenzwertUeberschreitung)
+                {
+                    Console.WriteLine("FEHLER: Zahl muss größer als {0} und kleiner als {1} sein.", RechnerModel.UntererGrenzwert, RechnerModel.ObererGrenzwert);
+                }
+            }
+            while (model.AktuellerFehler == Fehler.GrenzwertUeberschreitung);
         }
-        
+
         public void HoleEingabenFuerFortlaufendeBerechnung()
         {
-            string eingabe = HoleNaechsteAktionVomBenutzer();
 
-            if (eingabe == "FERTIG")
+
+            model.ErsteZahl = model.Resultat;
+            do
+            {
+                double eingabe = HoleNaechsteAktionVomBenutzer();
+                model.ZweiteZahl = Convert.ToDouble(eingabe);
+                if (model.AktuellerFehler == Fehler.GrenzwertUeberschreitung)
+                {
+                    Console.WriteLine("FEHLER: Zahl muss größer als {0} und kleiner als {1} sein.", RechnerModel.UntererGrenzwert, RechnerModel.ObererGrenzwert);
+                }
+            }
+            while (model.AktuellerFehler == Fehler.GrenzwertUeberschreitung);
+
+
+
+        }
+
+        private double HoleNaechsteAktionVomBenutzer()
+        {
+            string eingabe;
+            double zahl = 0;
+            Console.Write("Bitte gib eine weitere Zahl ein (FERTIG zum Beenden): ");
+            eingabe = Console.ReadLine();
+
+            if (eingabe.ToUpper() == "FERTIG")
             {
                 BenutzerWillBeenden = true;
             }
+
             else
             {
-                model.ErsteZahl = model.Resultat;
-                model.ZweiteZahl = Convert.ToDouble(eingabe);
+                while (!double.TryParse(eingabe, out zahl))
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(" Du musst eine gültige Gleitkommazahl eingeben!");
+                    Console.WriteLine("Neben den Ziffern 0-9 sind lediglich die folgenden Sonderzeichen erlaubt: ,.-");
+                    Console.WriteLine("Dabei muss das - als erstes Zeichen vor einer Ziffer gesetzt werden.");
+                    Console.WriteLine("Der . fungiert als Trennzeichen an Tausenderstellen.");
+                    Console.WriteLine("Das , ist das Trennzeichen für die Nachkommastellen.");
+                    Console.WriteLine("Alle drei Sonderzeichen sind optional!");
+                    Console.WriteLine();
+                    Console.Write("Bitte gib erneut eine Zahl für die Berechnung ein: ");
+                    eingabe = Console.ReadLine();
+                }
             }
-        }
-
-        private string HoleNaechsteAktionVomBenutzer()
-        {
-            Console.Write("Bitte gib eine weitere Zahl ein (FERTIG zum Beenden): ");
-            return Console.ReadLine();
-        }
-
-        public void HoleEingabenVomBenutzer()
-        {
-            model.ErsteZahl = HoleZahlVomBenutzer();
-            model.Operation = HoleOperatorVomBenutzer();
-            model.ZweiteZahl = HoleZahlVomBenutzer();
+            return Convert.ToDouble(zahl);
         }
 
         private double HoleZahlVomBenutzer()
         {
             string eingabe;
             double zahl;
-            Console.Write("Bitte gib eine Zahl für die Berechnung ein (FERTIG zum beenden): ");
+            Console.Write("Bitte gib eine Zahl für die Berechnung ein: ");
             eingabe = Console.ReadLine();
 
-            while (!Double.TryParse(eingabe, out zahl))
+            while (!double.TryParse(eingabe, out zahl))
             {
+                Console.WriteLine();
                 Console.WriteLine("Du musst eine gültige Gleitkommazahl eingeben!");
                 Console.WriteLine("Neben den Ziffern 0-9 sind lediglich die folgenden Sonderzeichen erlaubt: ,.-");
                 Console.WriteLine("Dabei muss das - als erstes Zeichen vor einer Ziffer gesetzt werden.");
@@ -69,31 +112,31 @@ namespace Taschenrechner_Iteration_1
                 Console.WriteLine("Das , ist das Trennzeichen für die Nachkommastellen.");
                 Console.WriteLine("Alle drei Sonderzeichen sind optional!");
                 Console.WriteLine();
-                Console.WriteLine("Bitte gib erneut eine Zahl für die Berechnung ein: ");
+                Console.Write("Bitte gib erneut eine Zahl für die Berechnung ein: ");
                 eingabe = Console.ReadLine();
             }
 
-            if (eingabe == "FERTIG")
-            {
-                BenutzerWillBeenden = true;
-                eingabe = "0,0";
-            }
-
-            return Convert.ToDouble(eingabe);
+            return zahl;
         }
 
         private string HoleOperatorVomBenutzer()
         {
-            Console.Write("Bitte gib die auszuführende Operation ein (+, -, *, /): ");
-            return Console.ReadLine();
-        }
+            string operation;
 
-        public string HoleBenutzerEingabe(string ausgabeText)
-        {
-            Console.Write(ausgabeText);
-            string Summand = Console.ReadLine();
+            do
+            {
+                Console.Write("Bitte gib die auszuführende Operation ein (+, -, /, *): ");
+                operation = Console.ReadLine();
+                model.Operation = operation;
 
-            return Summand;
+                if (model.AktuellerFehler == Fehler.UngueltigeOperation)
+                {
+                    Console.WriteLine("FEHLER: Die eingegebene Operation wird nicht unterstützt.");
+                }
+            }
+            while (model.AktuellerFehler == Fehler.UngueltigeOperation);
+
+            return operation;
         }
 
         public void GibResultatAus()
@@ -108,11 +151,11 @@ namespace Taschenrechner_Iteration_1
                     Console.WriteLine("Die Differenz ist: {0}", model.Resultat);
                     break;
 
-                case "*":
-                    Console.WriteLine("Der Wert des Quotienten: {0}", model.Resultat);
+                case "/":
+                    Console.WriteLine("Der Wert des Quotienten ist: {0}", model.Resultat);
                     break;
 
-                case "/":
+                case "*":
                     Console.WriteLine("Das Produkt ist: {0}", model.Resultat);
                     break;
 
